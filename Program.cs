@@ -5,12 +5,16 @@
     int employee_Monthly_weges;
     int countDays;
     int WORKING_DAYS;
+    int HOURS;
+    int TOTAL_MONTHLY_HOUR;
     public employeeWeges()
     {
         EMPLOYEE_WEGES=0;
         employee_Monthly_weges=0;
         countDays = 0;
         WORKING_DAYS = 20;
+        HOURS = 0;
+        TOTAL_MONTHLY_HOUR = 100;
     }
     public int checkAttendance()
         {
@@ -35,7 +39,7 @@
         {
             int EMPLOYEE_PRESENT_OR_ABSENT=0;
             int PARTTIME_OR_FULLTIME=0;
-            while (countDays < WORKING_DAYS)
+            while (countDays != WORKING_DAYS && HOURS != TOTAL_MONTHLY_HOUR )
             {
                 EMPLOYEE_PRESENT_OR_ABSENT = this.checkAttendance();
                 switch(EMPLOYEE_PRESENT_OR_ABSENT)
@@ -45,11 +49,13 @@
                     switch (PARTTIME_OR_FULLTIME)
                     {
                         case 0:
-                            EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR);                          
+                            EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR);
+                            HOURS+= FULL_DAY_HOUR;
                             break;
 
                         case 1:
                             EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, PARTTIME_HOUR);
+                            HOURS+= PARTTIME_HOUR;
                             break;
 
                         default:
@@ -63,7 +69,9 @@
                 }
                 employee_Monthly_weges += EMPLOYEE_WEGES;
                 countDays++;
+           
             }
+        Console.WriteLine("total weges=" + employee_Monthly_weges + "days=" + countDays + "hours=" + HOURS);
         return employee_Monthly_weges;
         }
     }
