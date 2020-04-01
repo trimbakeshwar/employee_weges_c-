@@ -33,12 +33,22 @@
             int PARTTIME_HOUR = 4;
             int ABSENT = 0;
             int EMPLOYEE_PRESENT_OR_ABSENT;
+        int PARTTIME_OR_FULLTIME;
             int EMPLOYEE_WEGES;
             employeeWeges emp = new employeeWeges();
-        EMPLOYEE_PRESENT_OR_ABSENT = emp.checkAttendance();
-            if(EMPLOYEE_PRESENT_OR_ABSENT==0)
+            EMPLOYEE_PRESENT_OR_ABSENT = emp.checkAttendance();
+        
+            if (EMPLOYEE_PRESENT_OR_ABSENT==0)
             {
-                EMPLOYEE_WEGES = emp.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR);
+                PARTTIME_OR_FULLTIME= emp.checkAttendance();
+                if (PARTTIME_OR_FULLTIME == 0)
+                {
+                    EMPLOYEE_WEGES = emp.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR);
+                }
+                else
+                {
+                   EMPLOYEE_WEGES = emp.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, PARTTIME_HOUR);
+                }
             }
             else
             {
