@@ -26,34 +26,48 @@
     class MainD
     {
     //private static int EMPLOYEE_PRESENT_OR_ABSENT;
-    public static void Main(string[] args)
+        public static void Main(string[] args)
         {
             int EMPLOYEE_WEGES_PER_HOUR = 20;
             int FULL_DAY_HOUR = 8;
             int PARTTIME_HOUR = 4;
             int ABSENT = 0;
             int EMPLOYEE_PRESENT_OR_ABSENT;
-        int PARTTIME_OR_FULLTIME;
+            int PARTTIME_OR_FULLTIME;
             int EMPLOYEE_WEGES;
             employeeWeges emp = new employeeWeges();
             EMPLOYEE_PRESENT_OR_ABSENT = emp.checkAttendance();
-        
-            if (EMPLOYEE_PRESENT_OR_ABSENT==0)
-            {
-                PARTTIME_OR_FULLTIME= emp.checkAttendance();
-                if (PARTTIME_OR_FULLTIME == 0)
+
+        switch (EMPLOYEE_PRESENT_OR_ABSENT)
+        {
+            case 0:
+                PARTTIME_OR_FULLTIME = emp.checkAttendance();
+                switch(PARTTIME_OR_FULLTIME)
                 {
+                    case 0:
                     EMPLOYEE_WEGES = emp.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR);
+                        Console.WriteLine(EMPLOYEE_WEGES);
+                        break;
+
+                    case 1:
+                    EMPLOYEE_WEGES = emp.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, PARTTIME_HOUR);
+                        Console.WriteLine(EMPLOYEE_WEGES);
+                        break;
+
+                    default:
+                        break;
                 }
-                else
-                {
-                   EMPLOYEE_WEGES = emp.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, PARTTIME_HOUR);
-                }
-            }
-            else
-            {
+                break;
+
+            case 1:
                 EMPLOYEE_WEGES = ABSENT;
-            }
                 Console.WriteLine(EMPLOYEE_WEGES);
+                break;
+
+            default:
+               break;
+
+        }
+ 
         }
     }
