@@ -34,44 +34,54 @@
         {
             return EMPLOYEE_WEGES_PER_HOUR * FULL_DAY_HOUR; 
         }
+
+        public int getWorkingHours(int FULL_DAY_HOUR, int PARTTIME_HOUR)
+        {
+            int  PARTTIME_OR_FULLTIME = 0;
+            PARTTIME_OR_FULLTIME = this.checkAttendance();
+                switch (PARTTIME_OR_FULLTIME)
+                {
+                    case 0:
+                         HOURS = FULL_DAY_HOUR;
+                         break;
+
+                    case 1:
+                         HOURS = PARTTIME_HOUR;
+                        break;
+
+                    default:
+                    break;
+                }
+        return HOURS;
+        
+    }
       
         public int monthlyWeges(int EMPLOYEE_WEGES_PER_HOUR, int FULL_DAY_HOUR, int PARTTIME_HOUR, int ABSENT)
         {
             int EMPLOYEE_PRESENT_OR_ABSENT=0;
-            int PARTTIME_OR_FULLTIME=0;
-            while (countDays != WORKING_DAYS && HOURS != TOTAL_MONTHLY_HOUR )
+            int totalHours = 0;
+            int workingHours = 0;
+            while (countDays != WORKING_DAYS && totalHours != TOTAL_MONTHLY_HOUR )
             {
                 EMPLOYEE_PRESENT_OR_ABSENT = this.checkAttendance();
                 switch(EMPLOYEE_PRESENT_OR_ABSENT)
                 {
-                case 0:
-                    PARTTIME_OR_FULLTIME = this.checkAttendance();
-                    switch (PARTTIME_OR_FULLTIME)
-                    {
-                        case 0:
-                            EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR);
-                            HOURS+= FULL_DAY_HOUR;
-                            break;
-
-                        case 1:
-                            EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, PARTTIME_HOUR);
-                            HOURS+= PARTTIME_HOUR;
-                            break;
-
-                        default:
+                    case 0:
+                        workingHours = getWorkingHours(FULL_DAY_HOUR, PARTTIME_HOUR);
+                        totalHours += workingHours;
+                        EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, workingHours);
+                       
                         break;
-                    }
-                    break;
 
-                case 1:
-                    EMPLOYEE_WEGES = ABSENT;
-                    break;
+                    case 1:
+                        EMPLOYEE_WEGES = ABSENT;
+                        break;
                 }
                 employee_Monthly_weges += EMPLOYEE_WEGES;
                 countDays++;
            
             }
-        Console.WriteLine("total weges=" + employee_Monthly_weges + "days=" + countDays + "hours=" + HOURS);
+        Console.WriteLine("total weges=" + employee_Monthly_weges + "days=" + countDays + "hours=" + totalHours);
         return employee_Monthly_weges;
         }
     }
