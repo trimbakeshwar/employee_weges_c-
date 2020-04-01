@@ -59,7 +59,7 @@ namespace employeeComputation
 
         }
 
-        public int monthlyWeges(int EMPLOYEE_WEGES_PER_HOUR, int FULL_DAY_HOUR, int PARTTIME_HOUR, int ABSENT)
+        public int monthlyWeges(Dictionary<String, int> dictionary, int EMPLOYEE_WEGES_PER_HOUR, int FULL_DAY_HOUR, int PARTTIME_HOUR, int ABSENT)
         {
             int EMPLOYEE_PRESENT_OR_ABSENT = 0;
             int totalHours = 0;
@@ -82,7 +82,7 @@ namespace employeeComputation
                 }
 
                 countDays++;
-               
+                dictionary[$"day {countDays}"] = EMPLOYEE_WEGES;
                 employee_Monthly_weges += EMPLOYEE_WEGES;
             }
             Console.WriteLine("total weges=" + employee_Monthly_weges + "days=" + countDays + "hours=" + totalHours);
@@ -101,10 +101,15 @@ namespace employeeComputation
             int PARTTIME_HOUR = 4;
             int ABSENT = 0;
             employeeWeges emp = new employeeWeges();
-           
-            int MONTHLY_WEGES = emp.monthlyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR, PARTTIME_HOUR, ABSENT);
+            Dictionary<String, int> dailyWeges = new Dictionary<String, int>();
+            int MONTHLY_WEGES = emp.monthlyWeges(dailyWeges,EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR, PARTTIME_HOUR, ABSENT);
             Console.WriteLine(MONTHLY_WEGES);
-            
+            foreach (KeyValuePair<String, int> itome in dailyWeges)
+            {
+                Console.WriteLine($"{itome.Key} : {itome.Value}");
+            }
+
+
         }
     }
 }
