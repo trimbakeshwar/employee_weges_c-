@@ -10,7 +10,7 @@ namespace employeeComputation
         int WORKING_DAYS;
         int HOURS;
         int TOTAL_MONTHLY_HOUR;
-        public employeeWeges()
+        public employeeWeges()//constructor for initialization
         {
             EMPLOYEE_WEGES = 0;
             employee_Monthly_weges = 0;
@@ -19,7 +19,7 @@ namespace employeeComputation
             HOURS = 0;
             TOTAL_MONTHLY_HOUR = 100;
         }
-        public int checkAttendance()
+        public int checkAttendance() // check employee present or absent
         {
             Random rand = new Random();
             int num = rand.Next(2);
@@ -33,12 +33,12 @@ namespace employeeComputation
             }
         }
 
-        public int calculateEmployeeDailyWeges(int EMPLOYEE_WEGES_PER_HOUR, int FULL_DAY_HOUR)
+        public int calculateEmployeeDailyWeges(int EMPLOYEE_WEGES_PER_HOUR, int FULL_DAY_HOUR)//calculate daily employee weges
         {
             return EMPLOYEE_WEGES_PER_HOUR * FULL_DAY_HOUR;
         }
 
-        public int getWorkingHours(int FULL_DAY_HOUR, int PARTTIME_HOUR)
+        public int getWorkingHours(int FULL_DAY_HOUR, int PARTTIME_HOUR) // working hours 
         {
             int PARTTIME_OR_FULLTIME = 0;
             PARTTIME_OR_FULLTIME = this.checkAttendance();
@@ -58,7 +58,7 @@ namespace employeeComputation
             return HOURS;
 
         }
-
+        //calculate monthly weges
         public int monthlyWeges(Dictionary<String, int> dictionary, int EMPLOYEE_WEGES_PER_HOUR, int FULL_DAY_HOUR, int PARTTIME_HOUR, int ABSENT)
         {
             int EMPLOYEE_PRESENT_OR_ABSENT = 0;
@@ -70,8 +70,8 @@ namespace employeeComputation
                 switch (EMPLOYEE_PRESENT_OR_ABSENT)
                 {
                     case 0:
-                        workingHours = getWorkingHours(FULL_DAY_HOUR, PARTTIME_HOUR);
-                        totalHours += workingHours;
+                        workingHours = getWorkingHours(FULL_DAY_HOUR, PARTTIME_HOUR);//take working hours from this function
+                        totalHours += workingHours;//add daily hours in total monthly hours
                         EMPLOYEE_WEGES = this.calculateEmployeeDailyWeges(EMPLOYEE_WEGES_PER_HOUR, workingHours);
 
                         break;
@@ -81,11 +81,11 @@ namespace employeeComputation
                         break;
                 }
 
-                countDays++;
-                dictionary[$"day {countDays}"] = EMPLOYEE_WEGES;
-                employee_Monthly_weges += EMPLOYEE_WEGES;
+                countDays++;//coutnt days
+                dictionary[$"day {countDays}"] = EMPLOYEE_WEGES;//store daily weges in dictionary
+                employee_Monthly_weges += EMPLOYEE_WEGES;//calculate monthly weges
             }
-            Console.WriteLine("total weges=" + employee_Monthly_weges + "days=" + countDays + "hours=" + totalHours);
+         
             return employee_Monthly_weges;
         }
     }
