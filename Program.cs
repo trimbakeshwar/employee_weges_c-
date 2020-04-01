@@ -81,12 +81,10 @@ class MainD
     //private static int EMPLOYEE_PRESENT_OR_ABSENT;
     public static void Main(string[] args)
     {
-     
         int EMPLOYEE_WEGES_PER_HOUR = 20;
         int FULL_DAY_HOUR = 8;
         int PARTTIME_HOUR = 4;
         int ABSENT = 0;
-      
         employeeWeges emp = new employeeWeges();
         int MONTHLY_WEGES= emp.monthlyWeges(EMPLOYEE_WEGES_PER_HOUR, FULL_DAY_HOUR, PARTTIME_HOUR, ABSENT);
         Console.WriteLine(MONTHLY_WEGES);
